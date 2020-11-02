@@ -5,3 +5,4 @@ Members: Jake
          Dominika
          Jamie
          Nicola
+         Tom
