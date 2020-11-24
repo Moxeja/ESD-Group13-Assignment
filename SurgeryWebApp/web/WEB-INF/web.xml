@@ -18,7 +18,7 @@
     </listener>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>com.Login</servlet-class>
+        <servlet-class>com.LoginCheck</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>

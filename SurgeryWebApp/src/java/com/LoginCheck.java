@@ -6,17 +6,18 @@
 package com;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Jake
  */
-public class Login extends HttpServlet {
+public class LoginCheck extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,18 +30,39 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Set reponse type
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        // Check for already valid session (no need to login again)
+        HttpSession hs = request.getSession(false);
+        if (hs != null && hs.getAttribute("user-type") != null) {
+            // Get session user type and forward them to the appropriate dashboard
+            String loginType = (String)hs.getAttribute("user-type");
+            switch (loginType) {
+                case "admin": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/admin-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                case "doctor": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/doctor-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                case "nurse": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/nurse-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                case "client": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/patient-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                default: {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                } break;
+            }
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
+            rd.forward(request, response);
         }
     }
 
