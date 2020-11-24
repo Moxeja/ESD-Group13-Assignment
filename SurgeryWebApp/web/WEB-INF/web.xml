@@ -17,12 +17,12 @@
         <listener-class>listeners.NewContextListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>LoginCheck</servlet-name>
-        <servlet-class>com.LoginCheck</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginCheck</servlet-name>
-        <url-pattern>/LoginCheck</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>20</session-timeout>

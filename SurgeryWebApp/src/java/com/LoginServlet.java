@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.Login;
 
 /**
  *
  * @author Jake
  */
-public class LoginCheck extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,8 +36,34 @@ public class LoginCheck extends HttpServlet {
         
         // Check for already valid session (no need to login again)
         HttpSession hs = request.getSession(false);
-        if (hs != null && hs.getAttribute("user-type") != null) {
-            // Get session user type and forward them to the appropriate dashboard
+        if (hs == null || hs.getAttribute("user-type") == null) {
+            // Check if user has provided login details
+            if (request.getAttribute("username") == null
+                    || request.getAttribute("password") == null) {
+                // Ask for login details
+                RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
+                rd.forward(request, response);
+            } else {
+                // Create login model object
+                Login login = new Login((String)request.getAttribute("username"),
+                        (String)request.getAttribute("password"), getServletContext());
+                
+                // Check if the login details provided point to a valid account
+                String userType = login.getAccountType();
+                if (userType != null) {
+                    // Create session with account user type attribute
+                    hs = request.getSession();
+                    hs.setAttribute("user-type", userType);
+                } else {
+                    // Something went wrong
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/login-error.jsp");
+                    rd.forward(request, response);
+                }
+            }
+        }
+        
+        // Get session user type and forward them to the appropriate dashboard
+        if (hs != null) {
             String loginType = (String)hs.getAttribute("user-type");
             switch (loginType) {
                 case "admin": {
@@ -60,10 +87,12 @@ public class LoginCheck extends HttpServlet {
                     rd.forward(request, response);
                 } break;
             }
-        } else {
-            RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
-            rd.forward(request, response);
         }
+        
+        // Should not end up here
+        // Something went wrong
+        RequestDispatcher rd = request.getRequestDispatcher("/views/login-error.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
