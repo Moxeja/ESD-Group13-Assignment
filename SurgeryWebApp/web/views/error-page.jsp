@@ -14,5 +14,6 @@
     <body>
         <h2>An error has occurred:</h2>
         <h3><%= request.getAttribute("error") %></h3>
+        <h4><a href="index.html">HomePage</a></h4>
     </body>
 </html>

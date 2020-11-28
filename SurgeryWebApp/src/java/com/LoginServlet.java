@@ -56,7 +56,8 @@ public class LoginServlet extends HttpServlet {
                     hs.setAttribute("user-type", userType);
                 } else {
                     // Something went wrong
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/login-error.jsp");
+                    request.setAttribute("error", "Account details do not match anything in database!");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
                     rd.forward(request, response);
                 }
             }
@@ -91,7 +92,8 @@ public class LoginServlet extends HttpServlet {
         
         // Should not end up here
         // Something went wrong
-        RequestDispatcher rd = request.getRequestDispatcher("/views/login-error.jsp");
+        request.setAttribute("error", "There was a problem logging you in.");
+        RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
         rd.forward(request, response);
     }
 
