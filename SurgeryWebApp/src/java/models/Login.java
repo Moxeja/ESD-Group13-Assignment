@@ -5,6 +5,12 @@
  */
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
@@ -13,17 +19,32 @@ import javax.servlet.ServletContext;
  */
 public class Login {
     
-    private String username;
-    private String password;
-    private ServletContext sc;
+    private final String username;
+    private final String password;
+    private final Connection con;
     
     public Login(String username, String password, ServletContext sc) {
         this.username = username;
         this.password = password;
-        this.sc = sc;
+        con = (Connection)sc.getAttribute("dbConnection");
     }
     
     public String getAccountType() {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE uname=?");
+            ps.setString(0, username);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                String pass = rs.getString("passwd");
+                if (password.equals(pass)) {
+                    return rs.getString("role");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return null;
     }
 }
