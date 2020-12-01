@@ -32,7 +32,7 @@ public class Login {
     public String getAccountType() {
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE uname=?");
-            ps.setString(0, username);
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {

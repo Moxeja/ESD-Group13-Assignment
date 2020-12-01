@@ -38,15 +38,16 @@ public class LoginServlet extends HttpServlet {
         HttpSession hs = request.getSession(false);
         if (hs == null || hs.getAttribute("user-type") == null) {
             // Check if user has provided login details
-            if (request.getAttribute("username") == null
-                    || request.getAttribute("password") == null) {
+            if (request.getParameter("username") == null
+                    || request.getParameter("password") == null) {
                 // Ask for login details
                 RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
                 rd.forward(request, response);
+                return;
             } else {
                 // Create login model object
-                Login login = new Login((String)request.getAttribute("username"),
-                        (String)request.getAttribute("password"), getServletContext());
+                Login login = new Login((String)request.getParameter("username"),
+                        (String)request.getParameter("password"), getServletContext());
                 
                 // Check if the login details provided point to a valid account
                 String userType = login.getAccountType();
@@ -59,35 +60,34 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("error", "Account details do not match anything in database!");
                     RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
                     rd.forward(request, response);
+                    return;
                 }
             }
         }
         
         // Get session user type and forward them to the appropriate dashboard
-        if (hs != null) {
-            String loginType = (String)hs.getAttribute("user-type");
-            switch (loginType) {
-                case "admin": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/admin-dashboard.jsp");
-                    rd.forward(request, response);
-                } break;
-                case "doctor": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/doctor-dashboard.jsp");
-                    rd.forward(request, response);
-                } break;
-                case "nurse": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/nurse-dashboard.jsp");
-                    rd.forward(request, response);
-                } break;
-                case "client": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/patient-dashboard.jsp");
-                    rd.forward(request, response);
-                } break;
-                default: {
-                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
-                    rd.forward(request, response);
-                } break;
-            }
+        String loginType = (String)hs.getAttribute("user-type");
+        switch (loginType) {
+            case "admin": {
+                RequestDispatcher rd = request.getRequestDispatcher("/views/admin-dashboard.jsp");
+                rd.forward(request, response);
+            } break;
+            case "doctor": {
+                RequestDispatcher rd = request.getRequestDispatcher("/views/doctor-dashboard.jsp");
+                rd.forward(request, response);
+            } break;
+            case "nurse": {
+                RequestDispatcher rd = request.getRequestDispatcher("/views/nurse-dashboard.jsp");
+                rd.forward(request, response);
+            } break;
+            case "client": {
+                RequestDispatcher rd = request.getRequestDispatcher("/views/patient-dashboard.jsp");
+                rd.forward(request, response);
+            } break;
+            default: {
+                RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                rd.forward(request, response);
+            } break;
         }
         
         // Should not end up here
