@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Login;
 
 /**
  *
  * @author Jake
  */
-public class LoginServlet extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,38 +30,36 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Set reponse type
         response.setContentType("text/html;charset=UTF-8");
-        
-        // Check for already valid session (no need to login again)
+
+        // Get session user type and forward them to the appropriate dashboard
         HttpSession hs = request.getSession();
-        if (hs.getAttribute("user-type") == null) {
-            // Check if user has provided login details
-            if (request.getParameter("username") == null
-                    || request.getParameter("password") == null) {
-                // Ask for login details
-                RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
-                rd.forward(request, response);
-            } else {
-                // Create login model object
-                Login login = new Login((String)request.getParameter("username"),
-                        (String)request.getParameter("password"), getServletContext());
-                
-                // Check if the login details provided point to a valid account
-                String userType = login.getAccountType();
-                if (userType != null) {
-                    // Create session with account user type attribute and send to dashboard
-                    hs.setAttribute("user-type", userType);
-                    response.sendRedirect("Dashboard");
-                } else {
-                    // Something went wrong
-                    request.setAttribute("error", "Account details do not match anything in database!");
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
+        String loginType = (String) hs.getAttribute("user-type");
+        if (loginType != null) {
+            switch (loginType) {
+                case "admin": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/admin-dashboard.jsp");
                     rd.forward(request, response);
-                }
+                } break;
+                case "doctor": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/doctor-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                case "nurse": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/nurse-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                case "client": {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/patient-dashboard.jsp");
+                    rd.forward(request, response);
+                } break;
+                default: {
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
+                    rd.forward(request, response);
+                } break;
             }
         } else {
-            response.sendRedirect("Dashboard");
+            response.sendRedirect("Login");
         }
     }
 
