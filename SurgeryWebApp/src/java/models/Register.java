@@ -1,0 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package models;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+
+/**
+ *
+ * @author Jake
+ */
+public class Register {
+
+    private final String username;
+    private final String password;
+    private final Connection con;
+
+    public Register(String username, String password, ServletContext sc) {
+        this.username = username;
+        this.password = password;
+        con = (Connection) sc.getAttribute("dbConnection");
+    }
+
+    public boolean checkAccountExists() {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE uname=?");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+    
+    public boolean registerNewAccount() {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO users VALUES (?, ?, 'client')");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            int updates = ps.executeUpdate();
+
+            if (updates > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+}
