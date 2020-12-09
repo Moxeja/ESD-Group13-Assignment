@@ -13,6 +13,11 @@
     </head>
     <body>
         <h1>Register!</h1>
+        <% 
+            if (request.getAttribute("msg") != null) {
+                out.print("<h3>" + request.getAttribute("msg") + "</h3><br>");
+            }
+        %>
         <form action="Register" method="post">
             Username: <input type="text" name="username"><br>
             Password: <input type="password" name="password"><br>

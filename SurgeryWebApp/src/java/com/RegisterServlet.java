@@ -44,23 +44,25 @@ public class RegisterServlet extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 // Create register model object
-                Register register = new Register((String)request.getParameter("username"),
-                        (String)request.getParameter("password"), getServletContext());
+                String username = (String)request.getParameter("username");
+                String password = (String)request.getParameter("password");
+                Register register = new Register(username, password, getServletContext());
                 
                 // Check if the login details provided point to a valid account
                 boolean exists = register.checkAccountExists();
                 if (exists) {
-                    request.setAttribute("error", "Account username already exists in database!");
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
+                    request.setAttribute("msg", "Account username already exists!");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
                     rd.forward(request, response);
                 } else {
                     boolean added = register.registerNewAccount();
                     if (added) {
                         hs.setAttribute("user-type", "client");
+                        hs.setAttribute("username", username);
                         response.sendRedirect("Dashboard");
                     } else {
-                        request.setAttribute("error", "Account could not be added!");
-                        RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
+                        request.setAttribute("msg", "Account could not be added!");
+                        RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
                         rd.forward(request, response);
                     }
                 }

@@ -45,19 +45,21 @@ public class LoginServlet extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 // Create login model object
-                Login login = new Login((String)request.getParameter("username"),
-                        (String)request.getParameter("password"), getServletContext());
+                String username = (String)request.getParameter("username");
+                String password = (String)request.getParameter("password");
+                Login login = new Login(username, password, getServletContext());
                 
                 // Check if the login details provided point to a valid account
                 String userType = login.getAccountType();
                 if (userType != null) {
                     // Create session with account user type attribute and send to dashboard
                     hs.setAttribute("user-type", userType);
+                    hs.setAttribute("username", username);
                     response.sendRedirect("Dashboard");
                 } else {
                     // Something went wrong
-                    request.setAttribute("error", "Account details do not match anything in database!");
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/error-page.jsp");
+                    request.setAttribute("msg", "Invalid login!");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
                     rd.forward(request, response);
                 }
             }
