@@ -20,7 +20,11 @@
         %>
         <form action="Register" method="post">
             Username: <input type="text" name="username"><br>
-            Password: <input type="password" name="password"><br>
+            Password: <input type="password" name="password"><br><br>
+            Full Name: <input type="text" name="name"><br>
+            Address: <input type="text" name="address"><br>
+            Client Type: NHS<input type="radio" name="ctype" value="NHS" checked>
+            Private<input type="radio" name="ctype" value="private"><br><br>
             <input type="submit" value="Register">
         </form>
     </body>

@@ -38,7 +38,10 @@ public class RegisterServlet extends HttpServlet {
         if (hs.getAttribute("user-type") == null) {
             // Check if user has provided login details
             if (request.getParameter("username") == null
-                    || request.getParameter("password") == null) {
+                    || request.getParameter("password") == null
+                    || request.getParameter("name") == null
+                    || request.getParameter("address") == null
+                    || request.getParameter("ctype") == null) {
                 // Ask for register details
                 RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
                 rd.forward(request, response);
@@ -46,21 +49,28 @@ public class RegisterServlet extends HttpServlet {
                 // Create register model object
                 String username = (String)request.getParameter("username");
                 String password = (String)request.getParameter("password");
-                Register register = new Register(username, password, getServletContext());
+                String name = (String)request.getParameter("name");
+                String address = (String)request.getParameter("address");
+                String cType = (String)request.getParameter("ctype");
+                Register register = new Register(username, password, name,
+                        address, cType, getServletContext());
                 
                 // Check if the login details provided point to a valid account
                 boolean exists = register.checkAccountExists();
                 if (exists) {
+                    // Warn user that account with that username already exists
                     request.setAttribute("msg", "Account username already exists!");
                     RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
                     rd.forward(request, response);
                 } else {
                     boolean added = register.registerNewAccount();
                     if (added) {
+                        // Create session information
                         hs.setAttribute("user-type", "client");
                         hs.setAttribute("username", username);
                         response.sendRedirect("Dashboard");
                     } else {
+                        // Warn user that there was a problem
                         request.setAttribute("msg", "Account could not be added!");
                         RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
                         rd.forward(request, response);
@@ -68,6 +78,7 @@ public class RegisterServlet extends HttpServlet {
                 }
             }
         } else {
+            // User already logged in, forward to dashboard
             response.sendRedirect("Dashboard");
         }
     }
