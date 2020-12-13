@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Hello Admin!</h1>
+        <h4><a href="AddStaff">Add Doctor or Nurse</a></h4>
     </body>
 </html>

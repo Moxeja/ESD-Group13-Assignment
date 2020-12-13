@@ -6,19 +6,20 @@
 package com;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.RegisterClient;
+import models.RegisterEmployee;
 
 /**
  *
  * @author Jake
  */
-public class RegisterServlet extends HttpServlet {
+public class AddStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,17 +34,15 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Check for already valid session (don't need to register if already signed in)
         HttpSession hs = request.getSession();
-        if (hs.getAttribute("user-type") == null) {
-            // Check if user has provided login details
+        if ("admin".equals(hs.getAttribute("user-type"))) {
+            // Check the details have been entered
             if (request.getParameter("username") == null
                     || request.getParameter("password") == null
                     || request.getParameter("name") == null
-                    || request.getParameter("address") == null
-                    || request.getParameter("ctype") == null) {
+                    || request.getParameter("address") == null) {
                 // Ask for register details
-                RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/views/register-employee-page.jsp");
                 rd.forward(request, response);
             } else {
                 // Create register model object
@@ -51,35 +50,37 @@ public class RegisterServlet extends HttpServlet {
                 String password = (String)request.getParameter("password");
                 String name = (String)request.getParameter("name");
                 String address = (String)request.getParameter("address");
-                String cType = (String)request.getParameter("ctype");
-                RegisterClient register = new RegisterClient(username, password, name,
-                        address, cType, getServletContext());
+                String type = (String)request.getParameter("type");
+                
+                // Use register employee model
+                RegisterEmployee re = new RegisterEmployee(username, password,
+                        name, address, type, getServletContext());
                 
                 // Check if the login details provided point to a valid account
-                boolean exists = register.checkAccountExists();
+                boolean exists = re.checkAccountExists();
                 if (exists) {
                     // Warn user that account with that username already exists
                     request.setAttribute("msg", "Account username already exists!");
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/register-employee-page.jsp");
                     rd.forward(request, response);
                 } else {
-                    boolean added = register.registerNewAccount();
+                    boolean added = re.registerNewAccount();
                     if (added) {
                         // Create session information
-                        hs.setAttribute("user-type", "client");
-                        hs.setAttribute("username", username);
-                        response.sendRedirect("Dashboard");
+                        request.setAttribute("msg", "Account has been created successfully!");
+                        RequestDispatcher rd = request.getRequestDispatcher("/views/register-employee-page.jsp");
+                        rd.forward(request, response);
                     } else {
                         // Warn user that there was a problem
                         request.setAttribute("msg", "Account could not be added!");
-                        RequestDispatcher rd = request.getRequestDispatcher("/views/register-page.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("/views/register-employee-page.jsp");
                         rd.forward(request, response);
                     }
                 }
             }
         } else {
-            // User already logged in, forward to dashboard
-            response.sendRedirect("Dashboard");
+            // Ask user to login
+            response.sendRedirect("Login");
         }
     }
 

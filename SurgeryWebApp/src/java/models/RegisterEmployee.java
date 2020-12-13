@@ -17,22 +17,22 @@ import javax.servlet.ServletContext;
  *
  * @author Jake
  */
-public class Register {
+public class RegisterEmployee {
 
     private final String username;
     private final String password;
     private final String name;
     private final String address;
-    private final String cType;
+    private final String type;
     private final Connection con;
 
-    public Register(String username, String password, String name,
-            String address, String cType, ServletContext sc) {
+    public RegisterEmployee(String username, String password, String name,
+            String address, String type, ServletContext sc) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.address = address;
-        this.cType = cType;
+        this.type = type;
         con = (Connection) sc.getAttribute("dbConnection");
     }
 
@@ -56,18 +56,18 @@ public class Register {
     public boolean registerNewAccount() {
         try {
             // Create user entry
-            PreparedStatement ps = con.prepareStatement("INSERT INTO users VALUES (?, ?, 'client')");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
             ps.setString(1, username);
             ps.setString(2, password);
+            ps.setString(3, type);
             int updates = ps.executeUpdate();
 
             if (updates > 0) {
                 // Create client entry
-                ps = con.prepareStatement("INSERT INTO clients (CNAME, CADDRESS, CTYPE, UNAME) VALUES (?, ?, ?, ?)");
+                ps = con.prepareStatement("INSERT INTO employee (ENAME, EADDRESS, UNAME) VALUES (?, ?, ?)");
                 ps.setString(1, name);
                 ps.setString(2, address);
-                ps.setString(3, cType);
-                ps.setString(4, username);
+                ps.setString(3, username);
                 
                 // Check for successful insert
                 updates = ps.executeUpdate();
