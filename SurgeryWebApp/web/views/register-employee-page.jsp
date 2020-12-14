@@ -13,8 +13,8 @@
     </head>
     <body>
         <h1>Register a new Doctor or Nurse</h1>
-        <h2><a href="index.html">Homepage</a></h2>
-        <h2><a href="Dashboard">Dashboard</a></h2>
+        <h2><a href="../">Homepage</a></h2>
+        <h2><a href="../Dashboard">Dashboard</a></h2>
         <% 
             if (request.getAttribute("msg") != null) {
                 out.print("<h3>" + request.getAttribute("msg") + "</h3><br>");

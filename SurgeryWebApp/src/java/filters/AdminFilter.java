@@ -35,13 +35,13 @@ public class AdminFilter implements Filter {
         // Get session information
         HttpServletRequest sRequest = (HttpServletRequest)request;
         HttpServletResponse sResponse = (HttpServletResponse)response;
-        HttpSession hs = sRequest.getSession();
+        HttpSession hs = sRequest.getSession(false);
         
         // Check to see if user is logged in as an admin
-        if ("admin".equals(hs.getAttribute("user-type"))) {
+        if (hs != null && "admin".equals(hs.getAttribute("user-type"))) {
             chain.doFilter(request, response);
         } else {
-            sResponse.sendRedirect("../Login");
+            sResponse.sendRedirect(sRequest.getContextPath() + "/Login");
         }
     }
 

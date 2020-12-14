@@ -41,7 +41,7 @@ public class LoginFilter implements Filter {
         if (hs == null || hs.getAttribute("user-type") == null) {
             chain.doFilter(request, response);
         } else {
-            sResponse.sendRedirect("Dashboard");
+            sResponse.sendRedirect(sRequest.getContextPath() + "/Dashboard");
         }
     }
 

@@ -39,8 +39,7 @@ public class LogoutServlet extends HttpServlet {
         }
         
         // Send user back to homepage
-        RequestDispatcher rd = request.getRequestDispatcher("index.html");
-        rd.forward(request, response);
+        response.sendRedirect(request.getContextPath());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

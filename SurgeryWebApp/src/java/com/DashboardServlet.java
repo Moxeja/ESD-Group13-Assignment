@@ -59,7 +59,7 @@ public class DashboardServlet extends HttpServlet {
                 } break;
             }
         } else {
-            response.sendRedirect("Login");
+            response.sendRedirect(request.getContextPath() + "/Login");
         }
     }
 

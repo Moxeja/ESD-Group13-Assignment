@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
                     HttpSession hs = request.getSession();
                     hs.setAttribute("user-type", "client");
                     hs.setAttribute("username", username);
-                    response.sendRedirect("Dashboard");
+                    response.sendRedirect(request.getContextPath() + "/Dashboard");
                 } else {
                     // Warn user that there was a problem
                     request.setAttribute("msg", "Account could not be added!");

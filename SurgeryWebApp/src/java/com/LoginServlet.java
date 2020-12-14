@@ -34,8 +34,6 @@ public class LoginServlet extends HttpServlet {
         // Set reponse type
         response.setContentType("text/html;charset=UTF-8");
         
-        // Check for already valid session (no need to login again)
-        HttpSession hs = request.getSession();
         // Check if user has provided login details
         if (request.getParameter("username") == null
                 || request.getParameter("password") == null) {
@@ -52,9 +50,10 @@ public class LoginServlet extends HttpServlet {
             String userType = login.getAccountType();
             if (userType != null) {
                 // Create session with account user type attribute and send to dashboard
+                HttpSession hs = request.getSession();
                 hs.setAttribute("user-type", userType);
                 hs.setAttribute("username", username);
-                response.sendRedirect("Dashboard");
+                response.sendRedirect(request.getContextPath() + "/Dashboard");
             } else {
                 // Something went wrong
                 request.setAttribute("msg", "Invalid login!");
