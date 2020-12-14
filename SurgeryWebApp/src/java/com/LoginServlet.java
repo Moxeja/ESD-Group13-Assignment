@@ -36,35 +36,31 @@ public class LoginServlet extends HttpServlet {
         
         // Check for already valid session (no need to login again)
         HttpSession hs = request.getSession();
-        if (hs.getAttribute("user-type") == null) {
-            // Check if user has provided login details
-            if (request.getParameter("username") == null
-                    || request.getParameter("password") == null) {
-                // Ask for login details
+        // Check if user has provided login details
+        if (request.getParameter("username") == null
+                || request.getParameter("password") == null) {
+            // Ask for login details
+            RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
+            rd.forward(request, response);
+        } else {
+            // Create login model object
+            String username = (String)request.getParameter("username");
+            String password = (String)request.getParameter("password");
+            Login login = new Login(username, password, getServletContext());
+
+            // Check if the login details provided point to a valid account
+            String userType = login.getAccountType();
+            if (userType != null) {
+                // Create session with account user type attribute and send to dashboard
+                hs.setAttribute("user-type", userType);
+                hs.setAttribute("username", username);
+                response.sendRedirect("Dashboard");
+            } else {
+                // Something went wrong
+                request.setAttribute("msg", "Invalid login!");
                 RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
                 rd.forward(request, response);
-            } else {
-                // Create login model object
-                String username = (String)request.getParameter("username");
-                String password = (String)request.getParameter("password");
-                Login login = new Login(username, password, getServletContext());
-                
-                // Check if the login details provided point to a valid account
-                String userType = login.getAccountType();
-                if (userType != null) {
-                    // Create session with account user type attribute and send to dashboard
-                    hs.setAttribute("user-type", userType);
-                    hs.setAttribute("username", username);
-                    response.sendRedirect("Dashboard");
-                } else {
-                    // Something went wrong
-                    request.setAttribute("msg", "Invalid login!");
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/login-page.jsp");
-                    rd.forward(request, response);
-                }
             }
-        } else {
-            response.sendRedirect("Dashboard");
         }
     }
 
