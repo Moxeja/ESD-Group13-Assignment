@@ -1,7 +1,7 @@
 <%-- 
-    Document   : patient-dashboard
-    Created on : 24-Nov-2020, 14:52:33
-    Author     : Jake
+    Document   : manage-appointments-page
+    Created on : 14-Dec-2020, 16:00:29
+    Author     : Tom
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Patient Dashboard</title>
+        <title>Appointment Management</title>
     </head>
     
     <body>
@@ -21,10 +21,13 @@
             }
         %>
         <h2>Book Appointment</h2>
-        <form action="./Patient/Appointments" method="post">
-            <h4><a href="./Patient/Appointments">Create Appointment</a></h4>
-            <h4><a href="./Patient/DestroyAppointments">Manage Appointments</a></h4>
+        <form action="Appointments" method="post">
+            Employee's name <input type="text" name="employee"><br>
+            Date <input type ="date" name ="date"><br>
+            Time <input type ="time" name ="time"><br>
+
+            <input type="submit" value="Create">
         </form>
-    
+        <h2>Remove Appointment</h2>
     </body>
 </html>
