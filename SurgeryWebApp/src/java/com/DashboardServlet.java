@@ -41,12 +41,9 @@ public class DashboardServlet extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("/views/admin-dashboard.jsp");
                     rd.forward(request, response);
                 } break;
-                case "doctor": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/doctor-dashboard.jsp");
-                    rd.forward(request, response);
-                } break;
+                case "doctor":
                 case "nurse": {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/nurse-dashboard.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/medical-staff-dashboard.jsp");
                     rd.forward(request, response);
                 } break;
                 case "client": {
