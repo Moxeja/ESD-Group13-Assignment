@@ -11,9 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Patient Dashboard</title>
     </head>
-    
     <body>
-
         <h1>Hello <%= session.getAttribute("username")%></h1>
         <% 
             if (request.getAttribute("msg") != null) {
@@ -25,6 +23,5 @@
             <h4><a href="./Patient/Appointments">Create Appointment</a></h4>
             <h4><a href="./Patient/DestroyAppointments">Manage Appointments</a></h4>
         </form>
-    
     </body>
 </html>

@@ -10,6 +10,7 @@ package pojo;
  * @author Tom
  */
 public class ClientInfo {
+    
     public final String cID;
     public final String cName;
     public final String cAddress;

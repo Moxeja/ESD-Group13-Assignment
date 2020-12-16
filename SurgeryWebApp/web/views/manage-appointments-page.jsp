@@ -24,7 +24,6 @@
                 <th>Date</th>
                 <th>Time</th>
             </tr>
-            
                 <%  
                     List<ArrayList<String>> appointments = (List<ArrayList<String>>)request.getAttribute("appointments");
                     for(ArrayList<String> appointment:appointments){
@@ -46,7 +45,6 @@
                        );
                     }
                 %>
-            
         </table>
     </body>
 </html>

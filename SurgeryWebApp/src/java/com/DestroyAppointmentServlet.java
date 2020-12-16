@@ -6,7 +6,6 @@
 package com;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -35,9 +34,10 @@ public class DestroyAppointmentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession session = request.getSession();
         ManageAppointment manageAppointment = new ManageAppointment(getServletContext());
-        List<ArrayList<String>> appointments = new ArrayList<ArrayList<String>>();
+        List<ArrayList<String>> appointments = new ArrayList<>();
 
         if (request.getParameter("delete")!= null){
             String SID = request.getParameter("delete");
@@ -49,15 +49,10 @@ public class DestroyAppointmentServlet extends HttpServlet {
         
         ClientInfo ClientInfo = manageAppointment.getClient(username);
         if (ClientInfo.cID != null){
-            System.out.println("got client");
             appointments = manageAppointment.getOldAppointments(ClientInfo);    
         }
         request.setAttribute("appointments", appointments);
         rd.forward(request, response);
-        
-       
-         
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

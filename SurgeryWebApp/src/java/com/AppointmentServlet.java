@@ -6,10 +6,8 @@
 package com;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,6 @@ import pojo.EmployeeInfo;
  *
  * @author Tom
  */
-@WebServlet(name = "AppointmentServlet", urlPatterns = {"/AppointmentServlet"})
 public class AppointmentServlet extends HttpServlet {
 
     /**
@@ -38,6 +35,7 @@ public class AppointmentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession session = request.getSession();
         RequestDispatcher rd = request.getRequestDispatcher("/views/create-appointments-page.jsp");
         if (request.getParameter("employee") == null
@@ -45,27 +43,21 @@ public class AppointmentServlet extends HttpServlet {
                 || request.getParameter("time") == null) {
             // Ask for login details
             rd.forward(request, response);
-
-            
         } else {
             // Create login model object
             String employee = (String)request.getParameter("employee");
             String date = (String)request.getParameter("date");
             String time = (String)request.getParameter("time");
             String client = (String)session.getAttribute("username");
-            String cid;
             ManageAppointment manageAppointment = new ManageAppointment(getServletContext());
 
             // Check if the login details provided point to a valid account
             EmployeeInfo employeeInfo  = manageAppointment.getEmployee(employee);
-            System.out.println(employeeInfo.role);
             if ("doctor".equals(employeeInfo.role)||"nurse".equals(employeeInfo.role)) {
                 ClientInfo ClientInfo = manageAppointment.getClient(client);
                 if (ClientInfo.cID != null){
-                    System.out.println("got client");
                     manageAppointment.getNewAppointment(employeeInfo.eID, ClientInfo.cID, time, date);
                 }
- 
             } else {
                 // Something went wrong
                 request.setAttribute("msg", "Invalid Doctor!");
