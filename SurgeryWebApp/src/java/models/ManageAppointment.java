@@ -143,7 +143,7 @@ public class ManageAppointment {
             System.out.println(ex);
         }
         
-        ClientInfo ClientInfo = new ClientInfo(cID, cName, cType, cUname);
+        ClientInfo ClientInfo = new ClientInfo(cID, cName, "", cType, cUname);
         return ClientInfo;
     }
     

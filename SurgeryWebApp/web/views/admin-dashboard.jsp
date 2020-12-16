@@ -16,5 +16,6 @@
         <h4><a href="./">Homepage</a></h4>
         <h4><a href="./Logout">Logout</a></h4>
         <h4><a href="./Admin/AddStaff">Add Doctor or Nurse</a></h4>
+        <h4><a href="./Admin/ListPatients">List current patients</a></h4>
     </body>
 </html>

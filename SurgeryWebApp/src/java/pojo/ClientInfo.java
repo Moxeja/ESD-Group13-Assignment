@@ -12,14 +12,16 @@ package pojo;
 public class ClientInfo {
     public final String cID;
     public final String cName;
+    public final String cAddress;
     public final String cType;
     public final String cUname;
 
-    public ClientInfo(String cID, String cName, String cType, String cUname){
+    public ClientInfo(String cID, String cName, String cAddress,
+            String cType, String cUname){
         this.cID = cID;
         this.cName = cName;
+        this.cAddress = cAddress;
         this.cType = cType;
         this.cUname = cUname;
-}
-       
+    } 
 }
