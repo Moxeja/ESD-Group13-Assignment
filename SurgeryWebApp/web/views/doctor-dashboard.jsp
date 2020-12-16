@@ -13,5 +13,7 @@
     </head>
     <body>
         <h1>Hello Doctor!</h1>
+        <h4><a href="./">Homepage</a></h4>
+        <h4><a href="./Logout">Logout</a></h4>
     </body>
 </html>

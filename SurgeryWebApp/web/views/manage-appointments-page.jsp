@@ -15,6 +15,9 @@
         <style> table {border-spacing: 10px} </style>
     </head>
     <body>
+        <h4><a href="../">Homepage</a></h4>
+        <h4><a href="../Logout">Logout</a></h4>
+        <h4><a href="../Dashboard">Dashboard</a></h4>
         <h1>Current Appointments</h1>
         <table>
             <tr>

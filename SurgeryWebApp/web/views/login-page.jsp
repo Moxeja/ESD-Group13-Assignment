@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Login!</h1>
+        <h4><a href="./">Homepage</a></h4>
         <% 
             if (request.getAttribute("msg") != null) {
                 out.print("<h3>" + request.getAttribute("msg") + "</h3><br>");

@@ -12,6 +12,7 @@
         <title>Register</title>
     </head>
     <body>
+        <h4><a href="./">Homepage</a></h4>
         <h1>Register!</h1>
         <% 
             if (request.getAttribute("msg") != null) {
