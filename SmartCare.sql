@@ -32,6 +32,20 @@ create table operations(
     charge float
 );
 
+create table invoices(
+	iID int not null primary key
+            generated always as identity (start with 1, increment by 1),
+	cID int references clients(cID),
+	oID int references operations(oID),
+	iPaid boolean
+);
+
+create table prices(
+	pID int not null primary key
+            generated always as identity (start with 1, increment by 1),
+	pDuration int,
+	pPrice float
+);
 
 create table booking_slots(
     sID int not null primary key
@@ -54,3 +68,4 @@ INSERT INTO EMPLOYEE (ENAME, EADDRESS, UNAME) VALUES ('Emin Aydin', 'Emiin''s Ad
 INSERT INTO CLIENTS (CNAME, CADDRESS, CTYPE, UNAME) VALUES ('Charly Aidan', '14 King Street, Aberdeen, AB24 1BR', 'NHS', 'caidan');
 INSERT INTO CLIENTS (CNAME, CADDRESS, CTYPE, UNAME) VALUES ('Prince Hassan', 'Non-UK street, Non-UK Town, Non_UK', 'private', 'princehassan');
 
+INSERT INTO PRICES (PDURATION, PPRICE) VALUES (10, 20);
