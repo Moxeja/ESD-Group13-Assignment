@@ -88,6 +88,10 @@
         <servlet-name>ChangeConsultationServlet</servlet-name>
         <servlet-class>com.ChangeConsultationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PayBillsServlet</servlet-name>
+        <servlet-class>com.PayBillsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -123,6 +127,10 @@
     <servlet-mapping>
         <servlet-name>ChangeConsultationServlet</servlet-name>
         <url-pattern>/Admin/ChangeConsultation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PayBillsServlet</servlet-name>
+        <url-pattern>/Patient/PayBills</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>20</session-timeout>

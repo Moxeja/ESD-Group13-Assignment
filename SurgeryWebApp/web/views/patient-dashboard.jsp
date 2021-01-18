@@ -24,6 +24,7 @@
         <form action="./Patient/Appointments" method="post">
             <h4><a href="./Patient/Appointments">Create Appointment</a></h4>
             <h4><a href="./Patient/DestroyAppointments">Manage Appointments</a></h4>
+            <h4><a href="./Patient/PayBills">Pay Outstanding Bills</a></h4>
         </form>
     </body>
 </html>
