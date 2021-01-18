@@ -48,13 +48,25 @@ public class PayBills {
             rs = ps.executeQuery();
             
             // Go through result set and retrieve all open invoices information
+            int iID = -999;
+            int oID = -999;
+            boolean iPaid = false;
             while (rs.next()) {
-                int iID = rs.getInt("iID");
-                int oID = rs.getInt("oID");
-                boolean iPaid = rs.getBoolean("iPaid");
+                iID = rs.getInt("iID");
+                oID = rs.getInt("oID");
+                iPaid = rs.getBoolean("iPaid");
+            }
+            
+            // Retrieve cost of the bill from operations table
+            ps = con.prepareStatement("SELECT charge FROM operations WHERE oID=?");
+            ps.setInt(1, oID);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                float charge = rs.getFloat("charge");
                 
                 // Add information to array
-                data.add(new InvoiceInfo(iID, cID, oID, iPaid));
+                data.add(new InvoiceInfo(iID, cID, oID, iPaid, charge));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PayBills.class.getName()).log(Level.SEVERE, null, ex);

@@ -15,11 +15,13 @@ public class InvoiceInfo {
     public final int cID;
     public final int oID;
     public final boolean iPaid;
+    public final float charge;
     
-    public InvoiceInfo(int iID, int cID, int oID, boolean iPaid) {
+    public InvoiceInfo(int iID, int cID, int oID, boolean iPaid, float charge) {
         this.iID = iID;
         this.cID = cID;
         this.oID = oID;
         this.iPaid = iPaid;
+        this.charge = charge;
     }
 }

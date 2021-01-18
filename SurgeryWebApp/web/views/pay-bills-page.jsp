@@ -4,6 +4,7 @@
     Author     : Jake
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="pojo.InvoiceInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,16 +23,19 @@
         <table>
             <tr>
                 <th>Invoice ID</th>
-                <th>Outstanding</th>
+                <th>Paid For</th>
+                <th>Cost</th>
             </tr>
                 <%  
                     ArrayList<InvoiceInfo> data = (ArrayList<InvoiceInfo>) request.getAttribute("data");
                     for (InvoiceInfo invoice : data) {
                        out.println(String.format(
                                "<tr><td>%d</td>"
-                               + "<td>%b</td></tr>",
+                               + "<td>%b</td>"
+                               + "<td>%s</td></tr>",
                                invoice.iID,
-                               invoice.iPaid
+                               invoice.iPaid,
+                               new DecimalFormat("£#.##").format(invoice.charge)
                        ));
                     }
                 %>
