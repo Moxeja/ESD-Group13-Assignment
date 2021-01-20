@@ -13,7 +13,9 @@
     </head>
     <body>
         <h1>Medical Staff Dashboard</h1>
+        
         <h4><a href="./">Homepage</a></h4>
+        <h4><a href="./Staff/ManagePatients">Forward Patients</a></h4>
         <h4><a href="./Logout">Logout</a></h4>
     </body>
 </html>

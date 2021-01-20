@@ -75,9 +75,7 @@ public class ManageAppointment {
         String eName = "";
         String role = "";
         eID = employee;
-        
-        
-        
+
         try{
             PreparedStatement es = con.prepareStatement("SELECT * FROM employee WHERE eid=?");
             es.setString(1, eID);
@@ -109,9 +107,6 @@ public class ManageAppointment {
         EmployeeInfo EmployeeInfo = new EmployeeInfo(eID, eName, euName, role);
         return EmployeeInfo;
     }
-    
-    
-    
     
     public ClientInfo getClient(String client){
         String cID = "";
@@ -146,10 +141,7 @@ public class ManageAppointment {
         ClientInfo ClientInfo = new ClientInfo(cID, cName, "", cType, cUname);
         return ClientInfo;
     }
-    
-    
-    
-    
+
     public boolean getNewAppointment(String eID, String cID, String time, String date){
         
         try{
@@ -199,6 +191,42 @@ public class ManageAppointment {
         
         return appointments;
     }
+    
+    public List<ArrayList<String>> getOldAppointmentsStaff(ClientInfo ClientInfo){
+        List<ArrayList<String>> appointments = new ArrayList<ArrayList<String>>();
+
+        try{
+       
+        PreparedStatement es = con.prepareStatement("SELECT * FROM booking_slots WHERE cid=?");
+            es.setString(1, ClientInfo.cID);
+            ResultSet as = es.executeQuery();
+
+            while (as.next()) {
+                String cid = as.getString("cid");
+                if (ClientInfo.cID.equals(cid)) {
+                    ArrayList<String> appointment = new ArrayList<String>();
+                    appointment.add(as.getString("sid"));
+                    appointment.add(getEmployeeByID(as.getString("eid")).eName);
+                    appointment.add(ClientInfo.cName);
+                    appointment.add(as.getString("sdate"));
+                    appointment.add(as.getString("stime"));
+                    appointments.add(appointment);
+                }
+            }
+            
+    }
+        catch(SQLException ex){   
+            System.out.println(ex);
+        }
+        
+        
+        return appointments;
+    }
+    
+    
+    
+    
+    
     
     public boolean destroyOldAppointment(String SID){
         try {

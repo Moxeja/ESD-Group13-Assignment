@@ -103,8 +103,8 @@
         <servlet-class>com.PayBillsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForwardPatientServlet</servlet-name>
-        <servlet-class>com.ForwardPatientServlet</servlet-class>
+        <servlet-name>ManagePatientServlet</servlet-name>
+        <servlet-class>com.ManagePatientServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -147,8 +147,8 @@
         <url-pattern>/Patient/PayBills</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForwardPatientServlet</servlet-name>
-        <url-pattern>/Staff/ForwardPatients</url-pattern>
+        <servlet-name>ManagePatientServlet</servlet-name>
+        <url-pattern>/Staff/ManagePatients</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>20</session-timeout>
