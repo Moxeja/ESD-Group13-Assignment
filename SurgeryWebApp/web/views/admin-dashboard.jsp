@@ -19,6 +19,6 @@
         <h4><a href="./Admin/ListPatients">List current patients</a></h4>
         <h4><a href="./Admin/ListPatientsDate">List current patients through surgery dates</a></h4>
         <h4><a href="./Admin/ChangeConsultation">Change consultation settings</a></h4>
-
+        <h4><a href="./Admin/remove-surgery">Remove patient from schedule</a></h4>
     </body>
 </html>
