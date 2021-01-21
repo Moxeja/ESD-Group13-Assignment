@@ -36,7 +36,7 @@ public class ListOperationsServlet extends HttpServlet {
         ArrayList<ScheduleInfo> data = new ArrayList<>(); 
         ViewSurgery vs = new ViewSurgery (getServletContext());
        
-       data = vs.getList();
+       data = vs.getList((String) request.getSession().getAttribute("username"));
         
        // Forward to the viewer page
         request.setAttribute("data", data);

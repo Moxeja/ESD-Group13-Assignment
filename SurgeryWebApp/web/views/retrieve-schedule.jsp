@@ -18,16 +18,14 @@
         <h4><a href="../">Homepage</a></h4>
         <h4><a href="../Logout">Logout</a></h4>
         <h4><a href="../Dashboard">Dashboard</a></h4
-        <h1>Operation schedule</h1>
+        <h1>Appointments schedule</h1>
         <table>
             <tr>
-                <th>Operation Id</th>
+                <th>Booking Id</th>
                 <th>Employee Id</th>
                 <th>Client Id</th>
                 <th>Date</th>
-                <th>Slot</th>
                 <th>Time</th>
-                <th>Charge</th>
             </tr>
                 <%  
                     ArrayList<ScheduleInfo> scheduleInfo = (ArrayList<ScheduleInfo>)request.getAttribute("data");
@@ -38,16 +36,12 @@
                                + "<td>%s</td>"
                                + "<td>%s</td>"
                                + "<td>%s</td>"
-                               + "<td>%s</td>"
-                               + "<td>%s</td>"
                                + "</tr>",
                                info.oID,
                                info.eID,
                                info.cID,
                                info.oDate,
-                               info.nSlot,
-                               info.oTime,
-                               info.charge
+                               info.oTime
                        ));
                     }
                 %>

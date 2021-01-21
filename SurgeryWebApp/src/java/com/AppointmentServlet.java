@@ -38,12 +38,10 @@ public class AppointmentServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         RequestDispatcher rd = request.getRequestDispatcher("/views/create-appointments-page.jsp");
-        if (request.getParameter("employee") == null
-                || request.getParameter("date") == null
-                || request.getParameter("time") == null) {
-            // Ask for login details
-            rd.forward(request, response);
-        } else {
+        if (request.getParameter("employee") != null
+                && request.getParameter("date") != null
+                && request.getParameter("time") != null) {
+            
             // Create login model object
             String employee = (String)request.getParameter("employee");
             String date = (String)request.getParameter("date");
@@ -57,6 +55,7 @@ public class AppointmentServlet extends HttpServlet {
                 ClientInfo ClientInfo = manageAppointment.getClient(client);
                 if (ClientInfo.cID != null){
                     manageAppointment.getNewAppointment(employeeInfo.eID, ClientInfo.cID, time, date);
+                    request.setAttribute("msg", "Appointment made successfully");
                 }
             } else {
                 // Something went wrong
@@ -65,6 +64,8 @@ public class AppointmentServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         }
+        
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

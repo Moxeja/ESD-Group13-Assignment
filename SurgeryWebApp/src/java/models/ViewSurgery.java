@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -27,24 +26,30 @@ public class ViewSurgery {
         con = (Connection)sc.getAttribute("dbConnection");
     }
     
-    public ArrayList<ScheduleInfo> getList() {
+    public ArrayList<ScheduleInfo> getList(String username) {
         try {
-            // Check for any existing user entries
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM operations");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM employee WHERE uName=?");
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
+            
+            int eID = -1;
+            while (rs.next()) {
+                eID = rs.getInt("eID");
+            }
+            
+            // Check for any existing user entries
+            ps = con.prepareStatement("SELECT * FROM booking_slots WHERE eID=?");
+            ps.setInt(1, eID);
+            rs = ps.executeQuery();
 
             ArrayList<ScheduleInfo> data = new ArrayList<>();
             while (rs.next()) {
-                String oID = rs.getString("oid");
-                String eID = rs.getString("eid");
+                String sID = rs.getString("sid");
                 String cID = rs.getString("cid");
-                String oDate = rs.getString("odate");
-                String oTime = rs.getString("otime");
-                String nSlot = rs.getString("nslot");
-                String charge = rs.getString("charge");
-        
+                String sDate = rs.getString("sdate");
+                String sTime = rs.getString("stime");        
                 
-                data.add(new ScheduleInfo(oID, eID, cID, oDate, oTime, nSlot, charge));
+                data.add(new ScheduleInfo(sID, ""+eID, cID, sDate, sTime, "", ""));
             }
             
             return data;
@@ -56,4 +61,3 @@ public class ViewSurgery {
     }
   
 }
-
