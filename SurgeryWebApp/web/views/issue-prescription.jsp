@@ -38,7 +38,6 @@
                        <th>Name</th>
                        <th>Patient Address</th>
                        <th>Type</th>
-
                    </tr>
                        <%  
                            ArrayList<ClientInfo> patientInfo = (ArrayList<ClientInfo>)request.getAttribute("data");
@@ -47,15 +46,12 @@
                                       "<tr><td>%s</td>"
                                       + "<td>%s</td>"
                                       + "<td>%s</td>"
-                                      + "<td>%s</td>"
-                                     // + "<td>%s</td>"
-                                    //  + "<td>%s</td>"        
+                                      + "<td>%s</td>"     
                                       + "</tr>",
                                       info.cID,
                                       info.cName,
                                       info.cAddress,
-                                      info.cType,
-                                      info.cID
+                                      info.cType
                               ));
                            }
                        %>

@@ -61,12 +61,11 @@
         <h3>Transfer Form</h2>
         <form action="./ManagePatients" method="post">
 
-            Client Name<input type ="cName" name ="cName"><br>
-            Reason For Transfer <input type ="reason" name ="reason"><br>
-            Location of Transfer <input type ="location" name ="location"><br>
-            Specialist Wanted <input type ="specialist" name ="specialist"<br>
+            Client Name<input type="text" name ="cName"><br>
+            Reason For Transfer <input type="text" name ="reason"><br>
+            Location of Transfer <input type="text" name ="location"><br>
+            Specialist Wanted <input type="text" name ="specialist"><br>
             <input type="submit" value="Transfer">
-
         </form>
         <% String formalrequest = "";
         formalrequest = (String)request.getAttribute("request");

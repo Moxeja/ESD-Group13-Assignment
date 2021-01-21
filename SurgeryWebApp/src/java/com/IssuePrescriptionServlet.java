@@ -7,7 +7,6 @@ package com;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -65,7 +64,6 @@ public class IssuePrescriptionServlet extends HttpServlet {
         
         
         //Client Display info
-        List<ArrayList<String>> clients = new ArrayList<>();
         ArrayList<ClientInfo> clientList = getPatients.getClients(currentEmployee.eID);
         request.setAttribute("data", clientList);
 
