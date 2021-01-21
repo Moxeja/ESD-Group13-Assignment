@@ -10,15 +10,37 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <h1>Hello Admin!</h1>
-        <h4><a href="./">Homepage</a></h4>
-        <h4><a href="./Logout">Logout</a></h4>
-        <h4><a href="./Admin/AddStaff">Add Doctor or Nurse</a></h4>
-        <h4><a href="./Admin/ListPatients">List current patients</a></h4>
-        <h4><a href="./Admin/ListPatientsDate">List current patients through surgery dates</a></h4>
-        <h4><a href="./Admin/ChangeConsultation">Change consultation settings</a></h4>
-        <h4><a href="./Admin/remove-surgery">Remove patient from schedule</a></h4>
+        <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="./">Homepage</a>
+        <a href="./Logout">Logout</a>
+        </div>
+             <div id="main">
+                <header> 
+                    <h1>Admin Dashboard</h1>
+                </header>
+                 <div class="btn-group" style="width:100%">
+                        <button style="width:20%"><a href="./Admin/AddStaff">Add Doctor or Nurse</a></button>
+                        <button style="width:20%"><a href="./Admin/ListPatients">List current patients</a></button>
+                        <button style="width:20%"><a href="./Admin/ListPatientsDate">List current patients by surgery dates</a></button>
+                        <button style="width:20%"><a href="./Admin/ChangeConsultation">Change consultation settings</a></button>
+                        <button style="width:20%"><a href="./Admin/remove-surgery">Remove patient from schedule</a></button>   
+                 </div>
+                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
+             </div>
+                    <script>
+                        function openNav() {
+                          document.getElementById("mySidenav").style.width = "250px";
+                          document.getElementById("main").style.marginLeft = "250px";
+                        }
+
+                        function closeNav() {
+                          document.getElementById("mySidenav").style.width = "0";
+                          document.getElementById("main").style.marginLeft= "0";
+                        }
+                    </script>
     </body>
 </html>

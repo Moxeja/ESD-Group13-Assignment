@@ -12,13 +12,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List of Patients</title>
-        <style> table {border-spacing: 10px} </style>
+       <link rel="stylesheet" type="text/css" href="../style.css">
     </head>
     <body>
-        <h4><a href="../">Homepage</a></h4>
-        <h4><a href="../Logout">Logout</a></h4>
-        <h4><a href="../Dashboard">Dashboard</a></h4>
-        <h2>Select which type of patient to list:</h2>
+        <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../">Homepage</a>
+        <a href="../Logout">Logout</a>
+        <a href="../Dashboard">Dashboard</a>
+        </div>
+            <div id="main">
+                <header> 
+                <h2>Patients</h2>
+                </header>
+                
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
+          <h2>Select which type of patient to list:</h2>         
         <form action="ListPatients">
             NHS <input type="radio" name="ctype" value="NHS" checked>
             Private <input type="radio" name="ctype" value="private"><br>
@@ -51,5 +60,17 @@
                     }
                 %>
         </table>
+            </div>
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+              document.getElementById("main").style.marginLeft = "250px";
+            }
+
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+              document.getElementById("main").style.marginLeft= "0";
+            }
+            </script>      
     </body>
 </html>

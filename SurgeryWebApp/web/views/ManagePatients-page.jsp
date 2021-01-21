@@ -73,10 +73,6 @@
         %>
         <textarea name='test' id='test'><%=formalrequest %> </textarea>
 
-        
-        
-        
-        
           <script>
             function openNav() {
               document.getElementById("mySidenav").style.width = "250px";

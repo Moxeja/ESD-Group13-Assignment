@@ -12,12 +12,26 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage Appointments</title>
-        <style> table {border-spacing: 10px} </style>
+        <link rel="stylesheet" type="text/css" href="../style.css">
     </head>
     <body>
-        <h4><a href="../">Homepage</a></h4>
-        <h4><a href="../Logout">Logout</a></h4>
-        <h4><a href="../Dashboard">Dashboard</a></h4>
+        <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../">Homepage</a>
+        <a href="../Logout">Logout</a>
+        <a href="../Dashboard">Dashboard</a>
+        </div>
+            <div id="main">
+                <header> 
+                    <h1>Hello <%= session.getAttribute("username")%></h1>
+             <% 
+            if (request.getAttribute("msg") != null) {
+                out.print("<h3>" + request.getAttribute("msg") + "</h3><br>");
+            }
+             %>
+                </header>
+                  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
+                  
         <h1>Current Appointments</h1>
         <table>
             <tr>
@@ -49,5 +63,17 @@
                     }
                 %>
         </table>
+            </div>
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+              document.getElementById("main").style.marginLeft = "250px";
+            }
+
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+              document.getElementById("main").style.marginLeft= "0";
+            }
+            </script>           
     </body>
 </html>
