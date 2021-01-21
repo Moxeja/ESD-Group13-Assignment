@@ -118,6 +118,10 @@
         <servlet-name>IssuePrescriptionServlet</servlet-name>
         <servlet-class>com.IssuePrescriptionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RepeatPrescriptionServlet</servlet-name>
+        <servlet-class>com.RepeatPrescriptionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -173,6 +177,10 @@
     <servlet-mapping>
         <servlet-name>IssuePrescriptionServlet</servlet-name>
         <url-pattern>/Staff/IssuePrescriptions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RepeatPrescriptionServlet</servlet-name>
+        <url-pattern>/Patient/RepeatPrescription</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>20</session-timeout>

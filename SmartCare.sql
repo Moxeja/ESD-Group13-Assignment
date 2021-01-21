@@ -58,6 +58,21 @@ create table booking_slots(
 
 ALTER TABLE booking_slots ADD COLUMN description VARCHAR(100);
 
+create table medicines(
+	mID int not null primary key
+            generated always as identity (start with 1, increment by 1),
+	mName varchar(40),
+	mType varchar(20),
+	mCost float
+);
+
+create table prescriptions(
+    ppID int not null primary key
+            generated always as identity (start with 1, increment by 1), 
+    cID int references clients(cID),
+    mID int references medicines(mID)
+);
+
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('meaydin', 'aydinme', 'doctor');
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('eaydin', '12345me', 'nurse');
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('caidan', '5432@10', 'client');
@@ -71,3 +86,7 @@ INSERT INTO CLIENTS (CNAME, CADDRESS, CTYPE, UNAME) VALUES ('Charly Aidan', '14 
 INSERT INTO CLIENTS (CNAME, CADDRESS, CTYPE, UNAME) VALUES ('Prince Hassan', 'Non-UK street, Non-UK Town, Non_UK', 'private', 'princehassan');
 
 INSERT INTO PRICES (PDURATION, PPRICE) VALUES (10, 20);
+
+INSERT INTO MEDICINES (MNAME, MTYPE, MCOST) VALUES ('FLUOXETINE','ANTIDEPRESSANT', 10);
+INSERT INTO MEDICINES (MNAME, MTYPE, MCOST) VALUES ('COLCHICINE','ANTIFLAMMATORY', 14);
+INSERT INTO MEDICINES (MNAME, MTYPE, MCOST) VALUES ('CODEINE','PAINKILLER', 8);

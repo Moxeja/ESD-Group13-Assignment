@@ -32,7 +32,7 @@
                     <div class="btn-group" style="width:100%">
                         <button style="width:25%"><a href="./Patient/Appointments">Create Appointment</a></button>
                         <button style="width:25%"><a href="./Patient/DestroyAppointments">Manage Appointments</a></button>
-                         <button style="width:25%">??</button>
+                         <button style="width:25%"><a href="./Patient/RepeatPrescription">Order Repeat Prescription</a></button>
                         <button style="width:25%"><a href="./Patient/PayBills">Pay Outstanding Bills</a></button>
                        
                     </div>
