@@ -23,11 +23,12 @@
                     <h1>Admin Dashboard</h1>
                 </header>
                  <div class="btn-group" style="width:100%">
-                        <button style="width:25%"><a href="./Admin/AddStaff">Add Doctor or Nurse</a></button>
-                        <button style="width:25%"><a href="./Admin/ListPatients">List or delete current patients</a></button>
-                        <button style="width:25%"><a href="./Admin/ListPatientsDate">List current patients by surgery dates</a></button>
-                        <button style="width:25%"><a href="./Admin/ChangeConsultation">Change consultation settings</a></button>
-<!--                    <button style="width:20%"><a href="./Admin/remove-surgery">Remove patient from schedule</a></button>   -->
+                        <button style="width:16.6%"><a href="./Admin/AddStaff">Add Doctor or Nurse</a></button>
+                        <button style="width:16.6%"><a href="./Admin/ListPatients">List current patients</a></button>
+                        <button style="width:16.6%"><a href="./Admin/ListPatientsDate">List current patients by surgery dates</a></button>
+                        <button style="width:16.6%"><a href="./Admin/ChangeConsultation">Change consultation settings</a></button>
+                        <button style="width:16.6%"><a href="./Admin/remove-surgery">Remove patient from schedule</a></button>
+                        <button style="width:16.6%"><a href="./Admin/Turnover">Calculate Turnover</a></button>
                  </div>
                     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
              </div>
