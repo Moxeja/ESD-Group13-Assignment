@@ -56,6 +56,8 @@ create table booking_slots(
     sTime time
 );
 
+ALTER TABLE booking_slots ADD COLUMN description VARCHAR(100);
+
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('meaydin', 'aydinme', 'doctor');
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('eaydin', '12345me', 'nurse');
 INSERT INTO USERS (UNAME, PASSWD, "ROLE") VALUES ('caidan', '5432@10', 'client');
