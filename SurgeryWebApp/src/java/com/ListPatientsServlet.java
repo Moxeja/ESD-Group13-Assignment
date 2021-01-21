@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.ManagePatients;
 import models.RetrievePatients;
 import pojo.ClientInfo;
 
@@ -33,7 +34,13 @@ public class ListPatientsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        // Check if the admin has tried to delete a client account
+        if (request.getParameter("cID") != null) {
+            ManagePatients manage = new ManagePatients(getServletContext());
+            manage.removeClient(Integer.parseInt(request.getParameter("cID")));
+        }
+
         // Create array to hold client info
         ArrayList<ClientInfo> data = new ArrayList<>();
         if (request.getParameter("ctype") != null) {
@@ -42,7 +49,7 @@ public class ListPatientsServlet extends HttpServlet {
                     request.getParameter("ctype"), getServletContext());
             data = rp.getList();
         }
-        
+
         // Forward to the viewer page
         request.setAttribute("data", data);
         RequestDispatcher rd = request.getRequestDispatcher("/views/retrieve-patients.jsp");

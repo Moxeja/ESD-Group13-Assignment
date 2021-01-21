@@ -21,20 +21,19 @@ import pojo.EmployeeInfo;
  * @author Tom
  */
 public class ManagePatients {
-    
+
     private final Connection con;
 
     public ManagePatients(ServletContext sc) {
         con = (Connection) sc.getAttribute("dbConnection");
-       
     }
-    
-    public EmployeeInfo getEmployee(String EmployeeUsername){
+
+    public EmployeeInfo getEmployee(String EmployeeUsername) {
         String eID = "";
         String eName = "";
         String eAddress = "";
         String uName = "";
-        
+
         try {
             // Check for any existing user entries
             PreparedStatement ps = con.prepareStatement("SELECT * FROM employee WHERE uname=?");
@@ -42,26 +41,22 @@ public class ManagePatients {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 eID = rs.getString("eid");
                 eName = rs.getString("ename");
                 eAddress = rs.getString("eaddress");
-                uName = EmployeeUsername;  
-                
+                uName = EmployeeUsername;
             }
             EmployeeInfo data = new EmployeeInfo(eID, eName, eAddress, uName);
-                
-            
 
             return data;
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    
+
     public ArrayList<ClientInfo> getClients(String EmployeeID) {
         try {
             // Check for any existing user entries
@@ -72,53 +67,66 @@ public class ManagePatients {
             ArrayList<String> foundClients = new ArrayList();
             ArrayList<ClientInfo> clientList = new ArrayList<>();
             while (rs.next()) {
-                
+
                 String cID = rs.getString("cid");
-                if(!foundClients.contains(cID)){
+                if (!foundClients.contains(cID)) {
                     clientList.add(getClientFromID(cID));
                     foundClients.add(cID);
                 }
-                
             }
-            
+
             return clientList;
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return new ArrayList<>();
     }
-    
+
     public ClientInfo getClientFromID(String cID) {
         String CID = cID;
         String cName = "";
         String cAddress = "";
         String cType = "";
         String uName = "";
+
         try {
             // Check for any existing user entries
             PreparedStatement ps = con.prepareStatement("SELECT * FROM clients WHERE cid=?");
             ps.setString(1, CID);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 cName = rs.getString("cname");
                 cAddress = rs.getString("caddress");
                 cType = rs.getString("ctype");
                 uName = rs.getString("uname");
-            }    
+            }
             ClientInfo data = new ClientInfo(cID, cName, cAddress, cType, uName);
 
             return data;
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
+
+    public void removeClient(int cID) {
+        try {
+            // Retrieve client info first
+            ClientInfo info = getClientFromID("" + cID);
+
+            // Remove client entry from database
+            PreparedStatement ps = con.prepareStatement("DELETE FROM clients WHERE cID=?");
+            ps.setInt(1, cID);
+            ps.executeUpdate();
+
+            // Remove entry from users table
+            ps = con.prepareStatement("DELETE FROM users WHERE uName=?");
+            ps.setString(1, info.cUname);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
-
-    
-    
-    
-
-
