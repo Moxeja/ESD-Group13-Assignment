@@ -24,11 +24,13 @@
                 <h1>Edit consultation details</h1>    
                 </header>    
                 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
-        <form action="ChangeConsultation" method="post">
-            Duration in minutes: <input type="text" name="duration" value="<% out.print(request.getAttribute("duration")); %>"><br>
-            Price: <input type="text" name="price" value="<% out.print(request.getAttribute("price")); %>"><br>
-            <input type="submit" value="Update details">
-        </form>
+                    <div id="consultationForm">       
+                    <form action="ChangeConsultation" method="post">
+                        Duration in minutes: <input type="text" name="duration" value="<% out.print(request.getAttribute("duration")); %>"><br>
+                        Price: <input type="text" name="price" value="<% out.print(request.getAttribute("price")); %>"><br>
+                        <input type="submit" value="Update details">
+                    </form>
+                    </div>
              <script>
             function openNav() {
               document.getElementById("mySidenav").style.width = "250px";

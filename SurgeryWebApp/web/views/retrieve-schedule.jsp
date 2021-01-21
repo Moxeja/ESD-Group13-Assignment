@@ -24,7 +24,7 @@
      
          <div id="main">
                 <header> 
-                <h1>Operation schedule</h1>
+                <h1>Operation Schedule</h1>
                 </header>
                 
                 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
@@ -62,16 +62,16 @@
                                 %>
                         </table>
          </div>
-                <script>
-            function openNav() {
-              document.getElementById("mySidenav").style.width = "250px";
-              document.getElementById("main").style.marginLeft = "250px";
-            }
+            <script>
+               function openNav() {
+                 document.getElementById("mySidenav").style.width = "250px";
+                 document.getElementById("main").style.marginLeft = "250px";
+               }
 
-            function closeNav() {
-              document.getElementById("mySidenav").style.width = "0";
-              document.getElementById("main").style.marginLeft= "0";
-            }
+               function closeNav() {
+                 document.getElementById("mySidenav").style.width = "0";
+                 document.getElementById("main").style.marginLeft= "0";
+               }
             </script>  
     </body>
 </html>

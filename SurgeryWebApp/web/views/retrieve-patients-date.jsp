@@ -25,47 +25,45 @@
         </div>
              <div id="main">
                 <header> 
-                    <h1>Admin Dashboard</h1>
+                    <h1>Patients by date</h1>
                 </header>
                 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
       
-        <h2>Select which dates you wish to view:</h2>
-        <form action="../Admin/ListPatientsDate" method="post">
-            Date <input type ="date" name ="startDate"><br>
-            Date <input type ="date" name ="endDate"><br>
-            <input type="submit" value="List Patients Date">
-        </form>
-        
-        <table>
-            <tr>
-                <th>Client ID</th>
-                <th>Client Name</th>
-                <th>Client Address</th>
-                <th>Client Type</th>
-                <th>Client Username</th>
-            </tr>
-                <%  
-                    ArrayList<ClientInfo> patientInfo = (ArrayList<ClientInfo>)request.getAttribute("data");
-                    for(ClientInfo info : patientInfo) {
-                       out.println(String.format("<tr>"
-                               +"<td>%s</td>"
-                               + "<td>%s</td>"
-                               + "<td>%s</td>"
-                               + "<td>%s</td>"
-                               + "<td>%s</td>"
-                               + "</tr>",
-                               info.cID,
-                               info.cName,
-                               info.cAddress,
-                               info.cType,
-                               info.cUname
-                       ));
-                    }
-                %>
-        </table>
-          
-             </div>
+                <h2>Select which dates you wish to view:</h2>
+                <form action="../Admin/ListPatientsDate" method="post">
+                    Date <input type ="date" name ="startDate"><br>
+                    Date <input type ="date" name ="endDate"><br>
+                    <input type="submit" value="List Patients Date">
+                </form>
 
+                    <table>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>Client Name</th>
+                            <th>Client Address</th>
+                            <th>Client Type</th>
+                            <th>Client Username</th>
+                        </tr>
+                            <%  
+                                ArrayList<ClientInfo> patientInfo = (ArrayList<ClientInfo>)request.getAttribute("data");
+                                for(ClientInfo info : patientInfo) {
+                                   out.println(String.format("<tr>"
+                                           +"<td>%s</td>"
+                                           + "<td>%s</td>"
+                                           + "<td>%s</td>"
+                                           + "<td>%s</td>"
+                                           + "<td>%s</td>"
+                                           + "</tr>",
+                                           info.cID,
+                                           info.cName,
+                                           info.cAddress,
+                                           info.cType,
+                                           info.cUname
+                                   ));
+                                }
+                            %>
+                    </table>
+             </div>
                     <script>
                         function openNav() {
                           document.getElementById("mySidenav").style.width = "250px";
