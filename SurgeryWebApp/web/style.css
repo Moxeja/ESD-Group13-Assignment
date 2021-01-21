@@ -133,8 +133,20 @@ h1{
     color: #ffc107;
 }
 
+#consultationForm{
+    padding-top:12px;
+    width: 25%;
+    background-color: wheat;
+}
 
-
+#issuePrescription{
+    padding-top:12px;
+    padding-bottom: 12px;
+    border-style: solid;
+    border-width: 3px;
+    width: 25%;
+    background-color: wheat;
+}
 
 .sidenav {
   height: 100%;

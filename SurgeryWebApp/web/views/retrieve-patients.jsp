@@ -37,8 +37,8 @@
             <header>
                 <h2>Patients</h2>
             </header>
-
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
+            
             <h2>Select which type of patient to list:</h2>
             <form action="ListPatients" method="post">
                 NHS <input type="radio" name="ctype" value="NHS" checked>
@@ -77,7 +77,7 @@
             <form action="ListPatients" method="post">
                 Client ID: <input type="text" name="cID"><br>
                 <input type="submit" value="Delete Patient">
-            </form>
-        </div>
+            </form>      
+        </div>     
     </body>
 </html>

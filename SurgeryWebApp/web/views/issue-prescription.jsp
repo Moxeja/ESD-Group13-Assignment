@@ -1,7 +1,7 @@
 <%-- 
     Document   : issueprescription
     Created on : 20-Jan-2021, 16:14:58
-    Author     : Delaylal-PC
+    Author     : Dominika
 --%>
 
 <%@page import="pojo.MedicinesInfo"%>
@@ -57,13 +57,13 @@
                        %>
                </table>
         
-                <h2>Medicines</h2>
+                <h2>Issue a prescription by selecting Patients IDs:</h2>
+                <div id="issuePrescription"
                 <form action="IssuePrescriptions" method="post">
                     Patient ID: <input type="text" name="cID"><br><br>
                     <select name="medicines">
                         <%
                             
-                            //make it array first
                              ArrayList<MedicinesInfo> medicines = ( ArrayList<MedicinesInfo>)request.getAttribute("medicines");
                                 for(MedicinesInfo medicine:medicines)
                             {       
@@ -73,6 +73,7 @@
                     </select>   
                     <input type="submit" value="Confirm">
                 </form>
+            </div>    
                 
 
            <script>
